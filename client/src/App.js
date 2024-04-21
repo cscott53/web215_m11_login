@@ -19,12 +19,12 @@ function App() {
     <div className="App">
       <Header/>
         <main>
-          <h2>Login/signup</h2>
           {(()=>{
             switch (screen) {
               case 'initial':
                 return (
                   <>
+                    <h2>Sign up or login</h2>
                     <button id='login' onClick={e=>{
                       e.preventDefault() // to prevent unintended default behavior
                       setScreen('login')
@@ -37,36 +37,42 @@ function App() {
                 )
               case 'login':
                 return (
-                  <form>
-                    <label htmlFor='username'>Username</label>
-                    <input id='username' type='text' ref={username}/>
-                    <label htmlFor='password'>Password</label>
-                    <input id='password' type='password' ref={pwd}/>
-                    <button id='login' onClick={e=>{
-                      e.preventDefault()
-                      setScreen('logged in')
-                    }}>Login</button>
-                  </form>
+                  <>
+                    <h2>Login</h2>
+                    <form>
+                      <label htmlFor='username'>Username</label>
+                      <input id='username' type='text' ref={username}/>
+                      <label htmlFor='password'>Password</label>
+                      <input id='password' type='password' ref={pwd}/>
+                      <button id='login' onClick={e=>{
+                        e.preventDefault()
+                        setScreen('logged in')
+                      }}>Login</button>
+                    </form>
+                  </>
                 )
               case 'sign up':
                 return (
-                  <form>
-                    <label htmlFor='email'>Email</label>
-                    <input type='email' id='email'/>
-                    <label htmlFor='username'>Email</label>
-                    <input type='text' id='username'/>
-                    <label htmlFor='password'>Email</label>
-                    <input type='password' id='password'/>
-                    <button id='signup' onClick={e=>{
-                      e.preventDefault()
-                      setScreen('logged in')
-                    }}>Sign up</button>
-                  </form>
+                  <>
+                    <h2>Sign up</h2>
+                    <form>
+                      <label htmlFor='email'>Email</label>
+                      <input type='email' id='email'/>
+                      <label htmlFor='username'>Email</label>
+                      <input type='text' id='username'/>
+                      <label htmlFor='password'>Email</label>
+                      <input type='password' id='password'/>
+                      <button id='signup' onClick={e=>{
+                        e.preventDefault()
+                        setScreen('logged in')
+                      }}>Sign up</button>
+                    </form>
+                  </>
                 )
               case 'logged in':
                 return (
                   <>
-                    You're successfully logged in
+                    <h2>You're successfully logged in</h2>
                     <button id='logout' onClick={e=>{
                       e.preventDefault()
                       setScreen('initial')
