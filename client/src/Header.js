@@ -1,15 +1,5 @@
-import { useEffect } from "react"
-
 export default function Header() {
-    useEffect(() => {
-        setTimeout(() => {
-            if (document.querySelector('header .links')) {
-                document.querySelectorAll('header .links:not(:last-of-type)')
-                    .forEach(e=>e.outerHTML+=' ')
-            }
-        }, 500)
-    }, [])
-    return (
+   return (
         <header>
             <h1>Charles Scott - Curious Squirrel - WEB215</h1>
             <span className="links header"><a href="https://cscott53.github.io/web215/">Home</a></span>
