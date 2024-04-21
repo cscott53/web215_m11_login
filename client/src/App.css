@@ -1,5 +1,6 @@
 body {
   background:linear-gradient(to right,#f70 0vw,#f70 10vw,#876 10vw,#876 90vw,#f70 90vw,#f70 100vw);
+  min-height: 100vh;
 }
 .App {
   text-align: center;
@@ -14,6 +15,10 @@ main {
   width: 60vw;
   text-align: left;
   min-height: 67vh;
+}
+header .links:not(:last-of-type)::after,
+footer .links:not(:last-of-type)::after {
+  content: ' ';
 }
 footer {
   position: absolute;
