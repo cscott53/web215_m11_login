@@ -16,6 +16,10 @@ main {
   text-align: left;
   min-height: 67vh;
 }
+header .links:not(:last-of-type)::after,
+footer .links:not(:last-of-type)::after {
+  content: ' ';
+}
 footer {
   position: absolute;
   bottom: 0;
