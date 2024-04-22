@@ -32,7 +32,7 @@ router.post('/users',async({body},res)=>{
     try {
         let db = client.db('test'),
             users = db.collection('users'),
-            user = await users.findOne({username})
+            user = await users.findOne({email})
         if(user) res.send('User already exists')
         else {
             await users.insertOne({email,username,password})
