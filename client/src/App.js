@@ -68,7 +68,7 @@ function App() {
                         if(res.ok) return res.text()
                         else throw new Error('Error fetching user')
                       })
-                      .then(data=>data=='true'?setScreen('logged in'):alert('Username or password is incorrect'))
+                      .then(data=>data=='true'?loggedin():alert('Username or password is incorrect'))
                       .catch(console.error)
                     }}>Login</button>
                     New user?
