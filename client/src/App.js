@@ -99,6 +99,7 @@ function App() {
                       if(!newPwd.current.value) return alert('Password field required')
                       if(!confirmPwd.current.value) return alert('Confirm password field required')
                       if(newPwd.current.value != confirmPwd.current.value) return alert('Passwords don\'t match')
+                      console.dir({email:email.current.value,username:newUser.current.value,password:newPwd.current.value})
                       fetch(`${apiUri}/users`,{
                         method: 'POST',
                         body: JSON.stringify({email:email.current.value,username:newUser.current.value,password:newPwd.current.value})
