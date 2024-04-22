@@ -11,7 +11,14 @@ function App() {
       newPwd = useRef({}),
       confirmPwd = useRef({}),
       {href,host} = window.location,
-      apiUri = `${href.includes('https://') ? 'https' : 'http'}://${host}/api`
+      apiUri = `${href.includes('https://') ? 'https' : 'http'}://${host}/api`,
+      loggedin = ()=>{
+        setScreen('logged in')
+        let links = docuemnt.querySelectorAll('header .links')
+        for (var link of links) {
+          link.href += '?loggedin=true'
+        }
+      }
   useEffect(() => {
     setTimeout(() => {
       if (document.querySelector('.links')) {
@@ -98,7 +105,7 @@ function App() {
                       }).then(res=>{
                         if(res.ok) return res.text()
                         else throw new Error('Error fetching data')
-                      })
+                      }).then(data=>data.includes('already exists')?alert(''):loggedin())
                     }}>Sign up</button>
                     Already have an account?
                     <button id='login' onClick={e=>{
