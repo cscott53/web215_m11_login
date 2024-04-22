@@ -14,7 +14,7 @@ function App() {
       apiUri = `${href.includes('https://') ? 'https' : 'http'}://${host}/api`,
       loggedin = ()=>{
         setScreen('logged in')
-        let links = docuemnt.querySelectorAll('header .links')
+        let links = document.querySelectorAll('header .links')
         for (var link of links) {
           link.href += '?loggedin=true'
         }
