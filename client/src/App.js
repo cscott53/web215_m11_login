@@ -83,7 +83,7 @@ function App() {
                     <input type='text' id='username' ref={newUser}/>
                     <label htmlFor='password'>Password</label>
                     <input type='password' id='password' ref={newPwd}/>
-                    <label htmlFor='confirm'>Password</label>
+                    <label htmlFor='confirm'>Confirm password</label>
                     <input type='password' id='confirm' ref={confirmPwd}/>
                     <button id='signup' onClick={e=>{
                       e.preventDefault()
@@ -92,7 +92,13 @@ function App() {
                       if(!newPwd.current.value) return alert('Password field required')
                       if(!confirmPwd.current.value) return alert('Confirm password field required')
                       if(newPwd.current.value != confirmPwd.current.value) return alert('Passwords don\'t match')
-                      setScreen('logged in')
+                      fetch(`${apiUri}/users`,{
+                        method: 'POST',
+                        body: JSON.stringify({email,newUser,newPwd})
+                      }).then(res=>{
+                        if(res.ok) return res.text()
+                        else throw new Error('Error fetching data')
+                      })
                     }}>Sign up</button>
                     Already have an account?
                     <button id='login' onClick={e=>{

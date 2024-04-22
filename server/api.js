@@ -27,4 +27,19 @@ router.get('/users',async({query},res)=>{
         console.dir(error)
     }
 })
+router.post('/users',async({body},res)=>{
+    let {email,username,password} = body
+    try {
+        let db = client.db('test'),
+            users = db.collection('users'),
+            user = await users.findOne({username})
+        if(user) res.send('User already exists')
+        else {
+            await users.insertOne({email,username,password})
+            res.send('Account created successfully')
+        }
+    } catch (error) {
+        console.dir(error)
+    }
+})
 module.exports = router
