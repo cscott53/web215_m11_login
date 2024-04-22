@@ -9,7 +9,9 @@ function App() {
       email = useRef({}),
       newUser = useRef({}),
       newPwd = useRef({}),
-      confirmPwd = useRef({})
+      confirmPwd = useRef({}),
+      {href,host} = window.location,
+      apiUri = `${href.includes('https://') ? 'https' : 'http'}://${host}/api`
   useEffect(() => {
     setTimeout(() => {
       if (document.querySelector('.links')) {
@@ -50,9 +52,17 @@ function App() {
                     <input id='password' type='password' ref={pwd}/>
                     <button id='login' onClick={e=>{
                       e.preventDefault()
+                      let {value:user} = username.current
+                      let {value:pw} = pwd.current
                       if(!username.current.value) return alert('Username field required')
                       if(!pwd.current.value) return alert('Password field required')
-                      setScreen('logged in')
+                      fetch(`${apiUri}/users?username=${user}&password=${pw}`)
+                      .then(res=>{
+                        if(res.ok) return res.text()
+                        else throw new Error('Error fetching user')
+                      })
+                      .then(data=>data=='true'?setScreen('logged in'):alert('Username or password is incorrect'))
+                      .catch(console.error)
                     }}>Login</button>
                   </form>
                 </>

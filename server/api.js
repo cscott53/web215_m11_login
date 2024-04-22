@@ -10,5 +10,15 @@ const { MongoClient, ServerApiVersion } = require('mongodb'),
       express = require('express'),
       router = express.Router()
 (async()=>await client.connect())()
-
+router.get('/users',async({query},res)=>{
+    try {
+        let {username,password} = query,
+            db = client.db('admin'),
+            user = await db.collection('users')
+            .findOne({username})
+        res.send((user?true:false) && user.password == password)
+    } catch (error) {
+        console.dir(error)
+    }
+})
 module.exports = router
