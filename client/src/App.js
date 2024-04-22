@@ -4,8 +4,11 @@ import Header from './Header'
 import { useEffect, useRef, useState } from "react"
 function App() {
   let [screen, setScreen] = useState('initial'),
-      username = useRef({}), //using object instead of undefined/null to avoid 'undefined/null not an object' error
-      pwd = useRef({})
+      username = useRef({}),
+      pwd = useRef({}),
+      email = useRef({}),
+      newUser = useRef({}),
+      newPwd = useRef({})
   useEffect(() => {
     setTimeout(() => {
       if (document.querySelector('.links')) {
@@ -57,11 +60,11 @@ function App() {
                     <h2>Sign up</h2>
                     <form>
                       <label htmlFor='email'>Email</label>
-                      <input type='email' id='email'/>
-                      <label htmlFor='username'>Email</label>
-                      <input type='text' id='username'/>
-                      <label htmlFor='password'>Email</label>
-                      <input type='password' id='password'/>
+                      <input type='email' id='email' ref={email}/>
+                      <label htmlFor='username'>Username</label>
+                      <input type='text' id='username' ref={newUser}/>
+                      <label htmlFor='password'>Password</label>
+                      <input type='password' id='password' ref={newPwd}/>
                       <button id='signup' onClick={e=>{
                         e.preventDefault()
                         setScreen('logged in')
