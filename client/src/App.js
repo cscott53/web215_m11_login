@@ -105,7 +105,7 @@ function App() {
                       }).then(res=>{
                         if(res.ok) return res.text()
                         else throw new Error('Error fetching data')
-                      }).then(data=>data.includes('already exists')?alert(''):loggedin())
+                      }).then(data=>data.includes('already exists')?alert('User already exists'):loggedin())
                     }}>Sign up</button>
                     Already have an account?
                     <button id='login' onClick={e=>{
