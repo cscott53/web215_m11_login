@@ -8,12 +8,18 @@ const { MongoClient, ServerApiVersion } = require('mongodb'),
           }
       }),
       express = require('express'),
-      router = express.Router()
+      router = express.Router();
+/*
+I usually don't use semicolons but had to put one on
+the line above since JS thought the () on the line
+below was trying to call what was returned on the
+line above and threw an error
+*/
 (async()=>await client.connect())()
 router.get('/users',async({query},res)=>{
     try {
         let {username,password} = query,
-            db = client.db('admin'),
+            db = client.db('test'),
             user = await db.collection('users')
             .findOne({username})
         res.send((user?true:false) && user.password == password)

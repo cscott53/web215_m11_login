@@ -64,6 +64,11 @@ function App() {
                       .then(data=>data=='true'?setScreen('logged in'):alert('Username or password is incorrect'))
                       .catch(console.error)
                     }}>Login</button>
+                    New user?
+                    <button id='signup' onClick={e=>{
+                      e.preventDefault()
+                      setScreen('sign up')
+                    }}>Sign up</button>
                   </form>
                 </>
               )
@@ -89,6 +94,11 @@ function App() {
                       if(newPwd.current.value != confirmPwd.current.value) return alert('Passwords don\'t match')
                       setScreen('logged in')
                     }}>Sign up</button>
+                    Already have an account?
+                    <button id='login' onClick={e=>{
+                      e.preventDefault()
+                      setScreen('login')
+                    }}>Login</button>
                   </form>
                 </>
               )
