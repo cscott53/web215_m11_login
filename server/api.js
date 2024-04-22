@@ -10,3 +10,5 @@ const { MongoClient, ServerApiVersion } = require('mongodb'),
       express = require('express'),
       router = express.Router()
 (async()=>await client.connect())()
+
+module.exports = router
