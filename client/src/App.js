@@ -9,7 +9,14 @@ function App() {
       email = useRef({}),
       newUser = useRef({}),
       newPwd = useRef({}),
-      confirmPwd = useRef({})
+      confirmPwd = useRef({}),
+      {href,host} = window.location,
+      apiUri = `${href.includes('https://') ? 'https' : 'http'}://${host}/api`,
+      loggedin = ()=>{
+        setScreen('logged in')
+        document.querySelectorAll('header .links a')
+        .forEach(a=>a.href+='?loggedin=true')
+      }
   useEffect(() => {
     setTimeout(() => {
       if (document.querySelector('.links')) {
@@ -50,10 +57,23 @@ function App() {
                     <input id='password' type='password' ref={pwd}/>
                     <button id='login' onClick={e=>{
                       e.preventDefault()
+                      let {value:user} = username.current
+                      let {value:pw} = pwd.current
                       if(!username.current.value) return alert('Username field required')
                       if(!pwd.current.value) return alert('Password field required')
-                      setScreen('logged in')
+                      fetch(`${apiUri}/users?username=${user}&password=${pw}`)
+                      .then(res=>{
+                        if(res.ok) return res.text()
+                        else throw new Error('Error fetching user')
+                      })
+                      .then(data=>data=='true'?loggedin():alert('Username or password is incorrect'))
+                      .catch(console.error)
                     }}>Login</button>
+                    New user?
+                    <button id='signup' onClick={e=>{
+                      e.preventDefault()
+                      setScreen('sign up')
+                    }}>Sign up</button>
                   </form>
                 </>
               )
@@ -68,7 +88,7 @@ function App() {
                     <input type='text' id='username' ref={newUser}/>
                     <label htmlFor='password'>Password</label>
                     <input type='password' id='password' ref={newPwd}/>
-                    <label htmlFor='confirm'>Password</label>
+                    <label htmlFor='confirm'>Confirm password</label>
                     <input type='password' id='confirm' ref={confirmPwd}/>
                     <button id='signup' onClick={e=>{
                       e.preventDefault()
@@ -77,8 +97,20 @@ function App() {
                       if(!newPwd.current.value) return alert('Password field required')
                       if(!confirmPwd.current.value) return alert('Confirm password field required')
                       if(newPwd.current.value != confirmPwd.current.value) return alert('Passwords don\'t match')
-                      setScreen('logged in')
+                      fetch(`${apiUri}/users`,{
+                        method: 'POST',
+                        headers:{'Content-Type':'application/json'},
+                        body: JSON.stringify({email:email.current.value,username:newUser.current.value,password:newPwd.current.value})
+                      }).then(res=>{
+                        if(res.ok) return res.text()
+                        else throw new Error('Error fetching data')
+                      }).then(data=>data.includes('already exists')?alert('User already exists'):loggedin())
                     }}>Sign up</button>
+                    Already have an account?
+                    <button id='login' onClick={e=>{
+                      e.preventDefault()
+                      setScreen('login')
+                    }}>Login</button>
                   </form>
                 </>
               )
