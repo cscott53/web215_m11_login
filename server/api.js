@@ -28,7 +28,6 @@ router.get('/users',async({query},res)=>{
     }
 })
 router.post('/users',async({body},res)=>{
-    console.log(body)
     let {email,username,password} = body
     try {
         let db = client.db('test'),

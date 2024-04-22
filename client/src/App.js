@@ -14,10 +14,8 @@ function App() {
       apiUri = `${href.includes('https://') ? 'https' : 'http'}://${host}/api`,
       loggedin = ()=>{
         setScreen('logged in')
-        let links = document.querySelectorAll('header .links')
-        for (var link of links) {
-          link.href += '?loggedin=true'
-        }
+        document.querySelectorAll('header .links a')
+        .forEach(a=>a.href+='?loggedin=true')
       }
   useEffect(() => {
     setTimeout(() => {
@@ -99,7 +97,6 @@ function App() {
                       if(!newPwd.current.value) return alert('Password field required')
                       if(!confirmPwd.current.value) return alert('Confirm password field required')
                       if(newPwd.current.value != confirmPwd.current.value) return alert('Passwords don\'t match')
-                      console.dir({email:email.current.value,username:newUser.current.value,password:newPwd.current.value})
                       fetch(`${apiUri}/users`,{
                         method: 'POST',
                         headers:{'Content-Type':'application/json'},
