@@ -101,7 +101,7 @@ function App() {
                       if(newPwd.current.value != confirmPwd.current.value) return alert('Passwords don\'t match')
                       fetch(`${apiUri}/users`,{
                         method: 'POST',
-                        body: JSON.stringify({email:email.current.value,newUser:newUser.current.value,newPwd:newPwd.current.value})
+                        body: JSON.stringify({email:email.current.value,username:newUser.current.value,password:newPwd.current.value})
                       }).then(res=>{
                         if(res.ok) return res.text()
                         else throw new Error('Error fetching data')
