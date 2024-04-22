@@ -102,6 +102,7 @@ function App() {
                       console.dir({email:email.current.value,username:newUser.current.value,password:newPwd.current.value})
                       fetch(`${apiUri}/users`,{
                         method: 'POST',
+                        headers:{'Content-Type':'application/json'},
                         body: JSON.stringify({email:email.current.value,username:newUser.current.value,password:newPwd.current.value})
                       }).then(res=>{
                         if(res.ok) return res.text()
