@@ -18,6 +18,8 @@ function App() {
         .forEach(a=>a.href+='?loggedin=true')
       }
   useEffect(() => {
+    if(location.href.includes('loggedin=true')) document.cookie = `loggedin=true; expires=${(date=>(date.setDate(date.getDate()+7),date.toString()))(new Date)}; path=/`
+    else document.cookie = `loggedin=false; expires=${(date=>(date.setDate(date.getDate()+7),date.toString()))(new Date)}; path=/`
     setTimeout(() => {
       if (document.querySelector('.links')) {
         for (var item of ['header','footer'])
