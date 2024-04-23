@@ -19,7 +19,7 @@ function App() {
       }
   useEffect(() => {
     //eslint-disable-next-line no-restricted-globals
-    if(location.href.includes('loggedin=true')) (document.cookie = `loggedin=true; expires=${(date=>(date.setDate(date.getDate()+7),date.toString()))(new Date)}; path=/`,loggedin())
+    if(location.href.includes('loggedin=true')) (document.cookie = `loggedin=true; expires=${(date=>[date.setDate(date.getDate()+7),date.toString()][1])(new Date)}; path=/`,loggedin())
     else document.cookie = `loggedin=false; expires=${(date=>(date.setDate(date.getDate()+7),date.toString()))(new Date)}; path=/`
     setTimeout(() => {
       if (document.querySelector('.links')) {
