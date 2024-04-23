@@ -19,10 +19,11 @@ function App() {
       }
   useEffect(() => {
     //eslint-disable-next-line no-restricted-globals
-    if(location.href.includes('loggedin=true')) (document.cookie = `loggedin=true; expires=${(date=>{
+    if(location.href.includes('loggedin=true')) {document.cookie = `loggedin=true; expires=${(date=>{
       date.setDate(date.getDate()+7)
       return date.toString()
-    })(new Date)}; path=/`,loggedin())
+    })(new Date)}; path=/`
+    loggedin()}
     else if(!document.cookie.includes('loggedin')) document.cookie = `loggedin=false; expires=${(date=>{
       date.setDate(date.getDate()+7)
       return date.toString()
