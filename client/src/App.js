@@ -4,6 +4,7 @@ import Header from './Header'
 import { useEffect, useRef, useState } from "react"
 function App() {
   let [screen, setScreen] = useState('initial'),
+      [userName,setUser] = useState(),
       username = useRef({}),
       pwd = useRef({}),
       email = useRef({}),
@@ -12,10 +13,10 @@ function App() {
       confirmPwd = useRef({}),
       {href,host} = window.location,
       apiUri = `${href.includes('https://') ? 'https' : 'http'}://${host}/api`,
-      loggedin = ()=>{
+      loggedin = user=>{
         setScreen('logged in')
         document.querySelectorAll('header .links a')
-        .forEach(a=>a.href+='?loggedin=true')
+        .forEach(a=>a.href+=`?loggedin=true&username=${user}`)
       }
   useEffect(() => {
     //eslint-disable-next-line no-restricted-globals
@@ -76,7 +77,17 @@ function App() {
                         if(res.ok) return res.text()
                         else throw new Error('Error fetching user')
                       })
-                      .then(data=>data=='true'?loggedin():alert('Username or password is incorrect'))
+                      .then(data=>{
+                        if (data=='true'){
+                          setUser(user)
+                          loggedin(user)
+                          document.cookie = `loggedin=true; username=${user}; expires=${(date=>{
+                            date.setDate(date.getDate()+7)
+                            return date.toString()
+                          })(new Date)}; path=/`
+                        }
+                        else alert('Username or password is incorrect')
+                      })
                       .catch(console.error)
                     }}>Login</button>
                     New user?
@@ -114,7 +125,18 @@ function App() {
                       }).then(res=>{
                         if(res.ok) return res.text()
                         else throw new Error('Error fetching data')
-                      }).then(data=>data.includes('already exists')?alert('User already exists'):loggedin())
+                      }).then(data=>{
+                        if (data.includes('already exists')) alert('User already exists')
+                        else {
+                          let user = newUser.current.value
+                          setUser(user)
+                          loggedin(user)
+                          document.cookie = `loggedin=true; username=${user}; expires=${(date=>{
+                            date.setDate(date.getDate()+7)
+                            return date.toString()
+                          })(new Date)}; path=/`
+                        }
+                      })
                     }}>Sign up</button>
                     Already have an account?
                     <button id='login' onClick={e=>{
