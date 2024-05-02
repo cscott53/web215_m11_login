@@ -19,13 +19,7 @@ function App() {
         .forEach(a=>a.href+=`?loggedin=true&username=${user}`)
       }
   useEffect(() => {
-    /*  //eslint-disable-next-line no-restricted-globals
-    if(location.href.includes('loggedin=true')) {document.cookie = `loggedin=true; expires=${(date=>{
-      date.setDate(date.getDate()+7)
-      return date.toString()
-    })(new Date)}; path=/`
-    loggedin()}
-    else */if(!document.cookie.includes('loggedin')) document.cookie = `loggedin=false; expires=${(date=>{
+    if(!document.cookie.includes('loggedin')) document.cookie = `loggedin=false; expires=${(date=>{
       date.setDate(date.getDate()+7)
       return date.toString()
     })(new Date)}; path=/`
