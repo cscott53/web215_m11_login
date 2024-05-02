@@ -29,6 +29,9 @@ function App() {
       date.setDate(date.getDate()+7)
       return date.toString()
     })(new Date)}; path=/`
+    let data = document.cookie.split(';'),
+        userData = data.find(item=>item.includes('username'))?.split('=')[1]
+    if (userData) loggedin(userData)
     setTimeout(() => {
       if (document.querySelector('.links')) {
         for (var item of ['header','footer'])
