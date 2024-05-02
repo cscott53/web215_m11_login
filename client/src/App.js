@@ -19,13 +19,13 @@ function App() {
         .forEach(a=>a.href+=`?loggedin=true&username=${user}`)
       }
   useEffect(() => {
-    //eslint-disable-next-line no-restricted-globals
+    /*  //eslint-disable-next-line no-restricted-globals
     if(location.href.includes('loggedin=true')) {document.cookie = `loggedin=true; expires=${(date=>{
       date.setDate(date.getDate()+7)
       return date.toString()
     })(new Date)}; path=/`
     loggedin()}
-    else if(!document.cookie.includes('loggedin')) document.cookie = `loggedin=false; expires=${(date=>{
+    else */if(!document.cookie.includes('loggedin')) document.cookie = `loggedin=false; expires=${(date=>{
       date.setDate(date.getDate()+7)
       return date.toString()
     })(new Date)}; path=/`
@@ -81,7 +81,11 @@ function App() {
                         if (data=='true'){
                           setUser(user)
                           loggedin(user)
-                          document.cookie = `loggedin=true; username=${user}; expires=${(date=>{
+                          document.cookie = `loggedin=true; expires=${(date=>{
+                            date.setDate(date.getDate()+7)
+                            return date.toString()
+                          })(new Date)}; path=/`
+                          document.cookie = `username=${user}; expires=${(date=>{
                             date.setDate(date.getDate()+7)
                             return date.toString()
                           })(new Date)}; path=/`
